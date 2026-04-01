@@ -4,7 +4,11 @@ import { z } from "zod";
 import axios from "axios";
 import xml2js from "xml2js";
 
-const OC = process.env.LAW_OC_KEY || "planitinstitute";
+const OC = process.env.LAW_OC_KEY;
+if (!OC) {
+  console.error("Error: LAW_OC_KEY 환경변수를 설정해주세요. (https://www.law.go.kr → 회원가입 → 마이페이지 → API인증값)");
+  process.exit(1);
+}
 const BASE_URL = "http://www.law.go.kr/DRF";
 
 async function lawRequest(endpoint, params) {
